@@ -9,7 +9,7 @@ s3 = boto3.client('s3')
 
 def lambda_handler(event, context):
     # Parse the URL from the event
-    body = json.loads(event['body'])
+    body = event['body']
     url = body['url']
     
     # Generate QR code
@@ -22,7 +22,7 @@ def lambda_handler(event, context):
     filename = url.split("://")[1].replace("/", "_") + '.png'
     
     # Upload the QR code to the S3 bucket
-    s3.put_object(Bucket='qr-code-generator3095', Key=filename, Body=img_bytes, ContentType='image/png', ACL='public-read')
+    s3.put_object(Bucket='qr-code-generator3095', Key=filename, Body=img_bytes, ContentType='image/png')   #ACL='public-read'
     
     # Generate the URL of the uploaded QR code
     location = s3.get_bucket_location(Bucket='qr-code-generator3095')['LocationConstraint']
