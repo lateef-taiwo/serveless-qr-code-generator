@@ -26,7 +26,7 @@ def lambda_handler(event, context):
     
     # Generate the URL of the uploaded QR code
     location = s3.get_bucket_location(Bucket='qr-code-generator3095')['LocationConstraint']
-    region = '' if location is None else f'{location}'
+    region = 'us-east-1'#'' if location is None else f'{location}
     qr_code_url = f"https://s3-{region}.amazonaws.com/{'qr-code-generator3095'}/{filename}"
     
     return {
